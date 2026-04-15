@@ -102,6 +102,7 @@ app.post("/items", async (req, res) => {
 // ✏️ Обновить заявку
 app.put("/items/:id", async (req, res) => {
   const id = Number(req.params.id);
+  console.log("🚀 ~ id:", id);
   const updated = await Item.findOneAndUpdate({ id }, req.body, { new: true });
   if (!updated) return res.status(404).json({ error: "Не найдено" });
   res.json(updated);
@@ -122,6 +123,7 @@ app.delete("/items/:id", async (req, res) => {
 
     // удаляем элемент
     doc.items = doc.items.filter((item) => item.id !== id);
+    console.log("🚀 ~ doc.items:", doc.items);
 
     if (doc.items.length === initialLength) {
       return res.status(404).json({ error: "Не найдено" });
